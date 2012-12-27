@@ -9,21 +9,25 @@
 # dependency: util-say
 
 
+XTERM = gnu.xterm-256color
+LINUX = gnu.linux
+PNG = gnu.png
+
 all: xterm-256color linux
 
 
-xterm-256color: gnu.xterm-256color
-gnu.xterm-256color: gnu.png
-	img2ponysay gnu.png | tail --lines="$$(( $$(img2ponysay gnu.png | wc -l) - 4 ))" > gnu.xterm-256color
+xterm-256color: $(XTERM)
+$(XTERM): $(PNG)
+	img2ponysay $(PNG) | tail --lines="$$(( $$(img2ponysay $(PNG) | wc -l) - 4 ))" > $(XTERM)
 
 
-linux: gnu.linux
-gnu.linux: gnu.xterm-256color
-	ponysay2img < gnu.xterm-256color gnu.png
+linux: $(LINUX)
+$(LINUX): $(XTERM)
+	ponysay2ttyponysay < $(XTERM) > $(LINUX)
 
 
-png: gnu.png
-gnu.png: gnu.xterm-256color
-	ponysay2img < gnu.xterm-256color gnu.png
+png: $(PNG)
+$(PNG): $(XTERM)
+	ponysay2img $(PNG) < $(XTERM)
 
 
