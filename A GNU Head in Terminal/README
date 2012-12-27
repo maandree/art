@@ -1,0 +1,12 @@
+This is a version of a GNU Head that can be printed into
+the Linux TTY and XTerm-256colour-compatible terminals.
+
+Requires UTF-8 encoding to be enabled at at least 72 columns
+in your terminal.
+
+It can not be printed into the Hurd TTY due to leak of
+terminal capabilities.
+
+Should look perfect in xterm with default settings, or
+in VTE-based, or similar, terminal if using the font Fixed.
+
